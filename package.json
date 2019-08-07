@@ -1,0 +1,19 @@
+{
+	"name": "component-cli",
+	"version": "0.0.1",
+	"description": "component generator cli program",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit1"
+	},
+	"author": "Stark",
+	"license": "MIT",
+	"bin": {
+		"createComp": "./index.js"
+	},
+	"dependencies": {
+		"chalk": "^2.4.2",
+		"commander": "^2.20.0",
+		"inquirer": "^6.5.0"
+	}
+}
