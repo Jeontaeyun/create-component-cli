@@ -29,7 +29,7 @@ $createComp
 파일의 이름을 입력하세요(복수 가능) Native Comp Bi Hi
 ? 
 파일이 위치할 경로를 입력해주세요(./src에서 시작) ./UI_Components
-? 
+? ㅎ
 생성하시겠습니까? Yes
 
     Native 컴포넌트가 생성되었습니다. 

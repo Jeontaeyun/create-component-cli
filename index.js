@@ -27,6 +27,12 @@ if (!triggered) {
 				choices: [ '프레젠트 컴포넌트', '컨테이너 컴포넌트' ]
 			},
 			{
+				type: 'list',
+				name: 'style',
+				message: '\n 어떤 방식의 CSS를 사용할지 정해주세요',
+				choices: [ 'SASS', 'Styled-components' ]
+			},
+			{
 				type: 'input',
 				name: 'name',
 				message: '\n 파일의 이름을 입력하세요(복수 가능)',
@@ -45,24 +51,35 @@ if (!triggered) {
 			}
 		])
 		.then((answers) => {
-			const { confirm, name, type, directory } = answers;
+			const { confirm, name, type, directory, style } = answers;
 			const nameArray = name.split(' ');
 			nameArray.forEach((item) => {
 				dirCreator.mkdir(`src/${directory}/${item}`);
 				const pathToFile = path.join(`src/${directory}/${item}`, `/index.js`);
-				const pathToScss = path.join(`src/${directory}/${item}`, `/index.scss`);
+
 				if (dirCreator.exist(pathToFile)) {
 					console.error(chalk.red(`\n 이미 해당 ${item} 파일이 존재합니다.\n`));
 				} else {
 					if (confirm) {
-						if (type === '컨테이너 컴포넌트') {
-							fs.writeFileSync(pathToFile, reactCreator.reactContainerTemplate(item));
-							fs.writeFileSync(pathToScss, '');
-							console.log(chalk.green(`\n ${item} 컴포넌트가 생성되었습니다.\n`));
-						} else if (type === '프레젠트 컴포넌트') {
-							fs.writeFileSync(pathToFile, reactCreator.reactPresentTemplate(item));
-							fs.writeFileSync(pathToScss, '');
-							console.log(chalk.green(`\n ${item} 컴포넌트가 생성되었습니다. \n`));
+						if (style === 'SASS') {
+							const pathToScss = path.join(`src/${directory}/${item}`, `/index.scss`);
+							if (type === '컨테이너 컴포넌트') {
+								fs.writeFileSync(pathToFile, reactCreator.reactContainerTemplate(item));
+								fs.writeFileSync(pathToScss, '');
+								console.log(chalk.green(`\n ${item} 컴포넌트가 생성되었습니다.\n`));
+							} else if (type === '프레젠트 컴포넌트') {
+								fs.writeFileSync(pathToFile, reactCreator.reactPresentTemplate(item));
+								fs.writeFileSync(pathToScss, '');
+								console.log(chalk.green(`\n ${item} 컴포넌트가 생성되었습니다. \n`));
+							}
+						} else if (style === 'Styled-components') {
+							if (type === '컨테이너 컴포넌트') {
+								fs.writeFileSync(pathToFile, reactCreator.reactContainerTemplate(item));
+								console.log(chalk.green(`\n ${item} 컴포넌트가 생성되었습니다.\n`));
+							} else if (type === '프레젠트 컴포넌트') {
+								fs.writeFileSync(pathToFile, reactCreator.reactPresentTemplate(item));
+								console.log(chalk.green(`\n ${item} 컴포넌트가 생성되었습니다. \n`));
+							}
 						}
 					}
 				}
